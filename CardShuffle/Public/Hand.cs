@@ -8,17 +8,42 @@ namespace CardShuffle.Public
 {
     class Hand
     {
-        private const int HAND_SIZE = 5;
-        public Card[] Cards { set { } get { return Cards; } }
-        public int selectedCards = 0;
+        private Card[] cardsInHand;
+        private int handPosition;
+        private int[] selected;
 
-        public Hand(Card[] cards)
+        public Hand(int numCards, int swaps)
         {
-            Cards = new Card[HAND_SIZE];
-            for(var i = 0; i < cards.Length; i++)
+            cardsInHand = new Card[numCards];
+            handPosition = 0;
+            selected = new int[swaps];
+            
+        }
+        public Card[] GetHand()
+        {
+            return cardsInHand;
+        }
+
+        public void AddCard(Card card)
+        {
+            if(handPosition < cardsInHand.Length)
             {
-                Cards[i] = cards[i];
+                cardsInHand[handPosition] = card;
+                handPosition++;
             }
         }
+
+        public void ReplaceCard(Card card, int index)
+        {
+            cardsInHand[index] = card;
+        }
+
+        // ***** Not sure if needed *****
+        public void AddSelected(int index)
+        {
+           
+        }
+
+
     }
 }

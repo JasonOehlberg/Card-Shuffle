@@ -1,36 +1,49 @@
 ﻿using CardShuffle.Public;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
-using System.Resources;
 using System.Windows.Forms;
 using CardShuffle.Properties;
-using System.Globalization;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace CardShuffle
 {
     public partial class CardTable : Form
     {
+        private const int CARDS_IN_HAND = 5;
+        private const int NUM_SWAPS = 2;
+        private const int PLAYERS = 2;
 
         private Deck deck;
-       // ArrayList images = new ArrayList();
+        // ArrayList images = new ArrayList();
         Random rand = new Random();
-        Card[] hand1 = new Card[5];
-        Card[] hand2 = new Card[5];
-        int selectedCards = 0;
+        //Card[] hand1 = new Card[5];
+        //Card[] hand2 = new Card[5];
+        Hand[] players;
         
+        int clicks = 0;
+
+
 
         public CardTable()
         {
             InitializeComponent();
             deck = new Deck();
-            deck.shuffleCards();
+            deck.ShuffleCards();
 
+            players = new Hand[PLAYERS] 
+            {
+                new Hand(CARDS_IN_HAND, NUM_SWAPS),
+                new Hand(CARDS_IN_HAND, NUM_SWAPS)
+            };
+        }
+
+        private void CardTable_Load(object sender, EventArgs e)
+        {
+            pbDrawDeck.SizeMode = PictureBoxSizeMode.StretchImage;
+            pbDrawDeck.Image = Resources.blue_back;
         }
 
         async Task PutTaskDelay()
@@ -52,26 +65,24 @@ namespace CardShuffle
 
         private void DisplayCardDetails()
         {
-            for(var i = 0; i < hand1.Length; i++)
+            for (var i = 0; i < CARDS_IN_HAND; i++)
             {
-                GetHandOneLabels()[i].Text = hand1[i].ToString();
+                GetHandOneLabels()[i].Text = players[0].GetHand()[i].ToString();
                 GetHandOneLabels()[i].ForeColor = Color.White;
-                GetHandTwoLabels()[i].Text = hand2[i].ToString();
+                GetHandTwoLabels()[i].Text = players[1].GetHand()[i].ToString();
                 GetHandTwoLabels()[i].ForeColor = Color.White;
             }
         }
-
+    
         private void ClearTable()
         {
-            for(var i = 0; i < hand1.Length; i++)
+            for (var i = 0; i < CARDS_IN_HAND; i++)
             {
                 GetHandOneLabels()[i].Text = String.Empty;
                 GetHandTwoLabels()[i].Text = String.Empty;
                 ShowHandOne()[i].Image = null;
                 ShowHandTwo()[i].Image = null;
             }
-
-
         }
 
         private PictureBox[] ShowHandOne()
@@ -91,57 +102,120 @@ namespace CardShuffle
             return cards;
         }
 
-        private void SetCardClicks()
+        private void SetImageClicks(PictureBox[] picBoxes)
         {
-            ArrayList tempCards = new ArrayList();
-            tempCards.AddRange(ShowHandOne());
-            tempCards.AddRange(ShowHandTwo());
-            foreach(PictureBox pb in tempCards)
+            foreach (PictureBox pb in picBoxes)
             {
                 pb.Click += ClickOnImage;
             }
-            
         }
 
         private void ClickOnImage(object sender, EventArgs eventArgs)
         {
-
             var picBox = (PictureBox)sender;
-            if (selectedCards <= 2)
-            {
-                picBox.BorderStyle = BorderStyle.Fixed3D;
-            }
-            selectedCards++;
-            
-        }
+            // if (Array.Exists<PictureBox>(ShowHandOne(), pic => pic == picBox))
+            //{
 
-        private void CardTable_Load(object sender, EventArgs e)
-        {
-            pbDrawDeck.SizeMode = PictureBoxSizeMode.StretchImage;
-            pbDrawDeck.Image = Resources.blue_back;
+            //}
+            if (clicks > 0)
+                btnSwap.Enabled = true;
+            else
+            {
+                btnSwap.Enabled = false;
+                lblOutput2.Text = $"Press 'Swap' to switch up to {NUM_SWAPS} cards.";
+            }
+
+            if (clicks < 2)
+            {
+                if (picBox.BackColor == Color.Red)
+                {
+                    clicks--;
+                    picBox.BackColor = Color.Transparent;
+                }
+                else if (picBox.BackColor == Color.Transparent)
+                {
+                    clicks++;
+                    picBox.BackColor = Color.Red;
+                }
+            }
+            else if (clicks == 2 && picBox.BackColor == Color.Red)
+            {
+                clicks--;
+                picBox.BackColor = Color.Transparent;
+            }
+            else if (clicks > 2)
+            {
+                clicks--;
+            }
         }
 
         private async void btnDeal_Click(object sender, EventArgs e)
         {
             ClearTable();
             pbDiscard.Image = null;
-            for (var i = 0; i < (hand1.Length); i++)
+            for (var i = 0; i < CARDS_IN_HAND; i++)
             {
                 await PutTaskDelay();
-                hand1[i] = deck.DealCard();
+                players[0].AddCard(deck.DealCard());
                 ShowHandOne()[i].SizeMode = PictureBoxSizeMode.StretchImage;
-                ShowHandOne()[i].Image = hand1[i].Front;
+                ShowHandOne()[i].Image = players[0].GetHand()[i].Front;
 
                 await PutTaskDelay();
-                hand2[i] = deck.DealCard();
+                players[1].AddCard(deck.DealCard());
                 ShowHandTwo()[i].SizeMode = PictureBoxSizeMode.StretchImage;
-                ShowHandTwo()[i].Image = hand2[i].Front;
+                ShowHandTwo()[i].Image = players[1].GetHand()[i].Front;
             }
             await PutTaskDelay();
+            DisplayCardDetails();
+            SetImageClicks(ShowHandOne());
+            lblOutput1.Text = "Player One";
+            lblOutput2.Text = "Please select cards to trade";
+
+        }
+
+        private void btnFlip_Click(object sender, EventArgs e)
+        {
             pbDiscard.SizeMode = PictureBoxSizeMode.StretchImage;
             pbDiscard.Image = deck.getCurrentCard().Front;
-            DisplayCardDetails();
-            SetCardClicks();
+        }
+
+        private void btnSwap_Click(object sender, EventArgs e)
+        {
+
+            var picBoxes = new ArrayList();
+            picBoxes.AddRange(ShowHandOne());
+            picBoxes.AddRange(ShowHandTwo());
+
+            foreach (PictureBox pb in picBoxes)
+            {
+                if (pb.BackColor == Color.Red)
+                {
+                    foreach(Hand hand in players)
+                    {
+                        for(var i = 0; i < hand.GetHand().Length; i++)
+                        {
+                            if(hand.GetHand()[i].Front == pb.Image)
+                            {
+                                hand.GetHand()[i] = deck.DealCard();
+                                pb.Image = hand.GetHand()[i].Front;
+                                var index = Array.IndexOf(picBoxes.ToArray(), pb);
+                                if(index > 4)
+                                {
+                                    index /= 2;
+                                    GetHandTwoLabels()[index].Text = hand.GetHand()[i].ToString();
+                                }
+                                else
+                                {
+                                    GetHandOneLabels()[index].Text = hand.GetHand()[i].ToString();
+                                } 
+                            }
+                        }
+                    }
+                }
+            }
+
+            
         }
     }
 }
+

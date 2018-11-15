@@ -30,6 +30,11 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CardTable));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.pbHandOne5 = new System.Windows.Forms.PictureBox();
+            this.pbHandOne4 = new System.Windows.Forms.PictureBox();
+            this.pbHandOne3 = new System.Windows.Forms.PictureBox();
+            this.pbHandOne2 = new System.Windows.Forms.PictureBox();
+            this.pbHandOne1 = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.pbHandTwo4 = new System.Windows.Forms.PictureBox();
             this.pbHandTwo5 = new System.Windows.Forms.PictureBox();
@@ -52,12 +57,17 @@
             this.lblHandTwo3 = new System.Windows.Forms.Label();
             this.lblHandTwo1 = new System.Windows.Forms.Label();
             this.lblHandTwo2 = new System.Windows.Forms.Label();
-            this.pbHandOne1 = new System.Windows.Forms.PictureBox();
-            this.pbHandOne2 = new System.Windows.Forms.PictureBox();
-            this.pbHandOne3 = new System.Windows.Forms.PictureBox();
-            this.pbHandOne4 = new System.Windows.Forms.PictureBox();
-            this.pbHandOne5 = new System.Windows.Forms.PictureBox();
+            this.btnFlip = new System.Windows.Forms.Button();
+            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
+            this.lblOutput2 = new System.Windows.Forms.Label();
+            this.lblOutput1 = new System.Windows.Forms.Label();
+            this.btnSwap = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbHandOne5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbHandOne4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbHandOne3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbHandOne2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbHandOne1)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbHandTwo4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbHandTwo5)).BeginInit();
@@ -69,11 +79,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbDrawDeck)).BeginInit();
             this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbHandOne1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbHandOne2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbHandOne3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbHandOne4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbHandOne5)).BeginInit();
+            this.tableLayoutPanel6.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -97,6 +103,56 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(919, 249);
             this.tableLayoutPanel1.TabIndex = 13;
+            // 
+            // pbHandOne5
+            // 
+            this.pbHandOne5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pbHandOne5.Location = new System.Drawing.Point(731, 8);
+            this.pbHandOne5.Name = "pbHandOne5";
+            this.pbHandOne5.Padding = new System.Windows.Forms.Padding(5);
+            this.pbHandOne5.Size = new System.Drawing.Size(177, 233);
+            this.pbHandOne5.TabIndex = 4;
+            this.pbHandOne5.TabStop = false;
+            // 
+            // pbHandOne4
+            // 
+            this.pbHandOne4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pbHandOne4.Location = new System.Drawing.Point(551, 8);
+            this.pbHandOne4.Name = "pbHandOne4";
+            this.pbHandOne4.Padding = new System.Windows.Forms.Padding(5);
+            this.pbHandOne4.Size = new System.Drawing.Size(174, 233);
+            this.pbHandOne4.TabIndex = 3;
+            this.pbHandOne4.TabStop = false;
+            // 
+            // pbHandOne3
+            // 
+            this.pbHandOne3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pbHandOne3.Location = new System.Drawing.Point(371, 8);
+            this.pbHandOne3.Name = "pbHandOne3";
+            this.pbHandOne3.Padding = new System.Windows.Forms.Padding(5);
+            this.pbHandOne3.Size = new System.Drawing.Size(174, 233);
+            this.pbHandOne3.TabIndex = 2;
+            this.pbHandOne3.TabStop = false;
+            // 
+            // pbHandOne2
+            // 
+            this.pbHandOne2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pbHandOne2.Location = new System.Drawing.Point(191, 8);
+            this.pbHandOne2.Name = "pbHandOne2";
+            this.pbHandOne2.Padding = new System.Windows.Forms.Padding(5);
+            this.pbHandOne2.Size = new System.Drawing.Size(174, 233);
+            this.pbHandOne2.TabIndex = 1;
+            this.pbHandOne2.TabStop = false;
+            // 
+            // pbHandOne1
+            // 
+            this.pbHandOne1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pbHandOne1.Location = new System.Drawing.Point(11, 8);
+            this.pbHandOne1.Name = "pbHandOne1";
+            this.pbHandOne1.Padding = new System.Windows.Forms.Padding(5);
+            this.pbHandOne1.Size = new System.Drawing.Size(174, 233);
+            this.pbHandOne1.TabIndex = 0;
+            this.pbHandOne1.TabStop = false;
             // 
             // tableLayoutPanel2
             // 
@@ -212,7 +268,7 @@
             this.btnDeal.BackColor = System.Drawing.Color.Gold;
             this.btnDeal.FlatAppearance.BorderSize = 5;
             this.btnDeal.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnDeal.Location = new System.Drawing.Point(35, 371);
+            this.btnDeal.Location = new System.Drawing.Point(35, 361);
             this.btnDeal.Name = "btnDeal";
             this.btnDeal.Size = new System.Drawing.Size(118, 42);
             this.btnDeal.TabIndex = 16;
@@ -364,55 +420,64 @@
             this.lblHandTwo2.TabIndex = 1;
             this.lblHandTwo2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // pbHandOne1
+            // btnFlip
             // 
-            this.pbHandOne1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pbHandOne1.Location = new System.Drawing.Point(11, 127);
-            this.pbHandOne1.Name = "pbHandOne1";
-            this.pbHandOne1.Padding = new System.Windows.Forms.Padding(5);
-            this.pbHandOne1.Size = new System.Drawing.Size(174, 14);
-            this.pbHandOne1.TabIndex = 0;
-            this.pbHandOne1.TabStop = false;
+            this.btnFlip.BackColor = System.Drawing.Color.Gold;
+            this.btnFlip.FlatAppearance.BorderSize = 5;
+            this.btnFlip.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnFlip.Location = new System.Drawing.Point(35, 440);
+            this.btnFlip.Name = "btnFlip";
+            this.btnFlip.Size = new System.Drawing.Size(118, 42);
+            this.btnFlip.TabIndex = 19;
+            this.btnFlip.Text = "Flip";
+            this.btnFlip.UseVisualStyleBackColor = false;
+            this.btnFlip.Click += new System.EventHandler(this.btnFlip_Click);
             // 
-            // pbHandOne2
+            // tableLayoutPanel6
             // 
-            this.pbHandOne2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pbHandOne2.Location = new System.Drawing.Point(191, 127);
-            this.pbHandOne2.Name = "pbHandOne2";
-            this.pbHandOne2.Padding = new System.Windows.Forms.Padding(5);
-            this.pbHandOne2.Size = new System.Drawing.Size(174, 14);
-            this.pbHandOne2.TabIndex = 1;
-            this.pbHandOne2.TabStop = false;
+            this.tableLayoutPanel6.ColumnCount = 1;
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel6.Controls.Add(this.lblOutput2, 0, 1);
+            this.tableLayoutPanel6.Controls.Add(this.lblOutput1, 0, 0);
+            this.tableLayoutPanel6.Location = new System.Drawing.Point(652, 373);
+            this.tableLayoutPanel6.Name = "tableLayoutPanel6";
+            this.tableLayoutPanel6.RowCount = 2;
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(257, 127);
+            this.tableLayoutPanel6.TabIndex = 20;
             // 
-            // pbHandOne3
+            // lblOutput2
             // 
-            this.pbHandOne3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pbHandOne3.Location = new System.Drawing.Point(371, 127);
-            this.pbHandOne3.Name = "pbHandOne3";
-            this.pbHandOne3.Padding = new System.Windows.Forms.Padding(5);
-            this.pbHandOne3.Size = new System.Drawing.Size(174, 14);
-            this.pbHandOne3.TabIndex = 2;
-            this.pbHandOne3.TabStop = false;
+            this.lblOutput2.AutoSize = true;
+            this.lblOutput2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblOutput2.Location = new System.Drawing.Point(3, 63);
+            this.lblOutput2.Name = "lblOutput2";
+            this.lblOutput2.Size = new System.Drawing.Size(251, 64);
+            this.lblOutput2.TabIndex = 1;
             // 
-            // pbHandOne4
+            // lblOutput1
             // 
-            this.pbHandOne4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pbHandOne4.Location = new System.Drawing.Point(551, 127);
-            this.pbHandOne4.Name = "pbHandOne4";
-            this.pbHandOne4.Padding = new System.Windows.Forms.Padding(5);
-            this.pbHandOne4.Size = new System.Drawing.Size(174, 14);
-            this.pbHandOne4.TabIndex = 3;
-            this.pbHandOne4.TabStop = false;
+            this.lblOutput1.AutoSize = true;
+            this.lblOutput1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblOutput1.Location = new System.Drawing.Point(3, 0);
+            this.lblOutput1.Name = "lblOutput1";
+            this.lblOutput1.Size = new System.Drawing.Size(251, 63);
+            this.lblOutput1.TabIndex = 0;
             // 
-            // pbHandOne5
+            // btnSwap
             // 
-            this.pbHandOne5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pbHandOne5.Location = new System.Drawing.Point(731, 127);
-            this.pbHandOne5.Name = "pbHandOne5";
-            this.pbHandOne5.Padding = new System.Windows.Forms.Padding(5);
-            this.pbHandOne5.Size = new System.Drawing.Size(177, 14);
-            this.pbHandOne5.TabIndex = 4;
-            this.pbHandOne5.TabStop = false;
+            this.btnSwap.BackColor = System.Drawing.Color.Gold;
+            this.btnSwap.Enabled = false;
+            this.btnSwap.FlatAppearance.BorderSize = 5;
+            this.btnSwap.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnSwap.Location = new System.Drawing.Point(35, 519);
+            this.btnSwap.Name = "btnSwap";
+            this.btnSwap.Size = new System.Drawing.Size(118, 42);
+            this.btnSwap.TabIndex = 21;
+            this.btnSwap.Text = "Swap";
+            this.btnSwap.UseVisualStyleBackColor = false;
+            this.btnSwap.Click += new System.EventHandler(this.btnSwap_Click);
             // 
             // CardTable
             // 
@@ -421,6 +486,9 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(943, 879);
+            this.Controls.Add(this.btnSwap);
+            this.Controls.Add(this.tableLayoutPanel6);
+            this.Controls.Add(this.btnFlip);
             this.Controls.Add(this.tableLayoutPanel5);
             this.Controls.Add(this.tableLayoutPanel4);
             this.Controls.Add(this.btnDeal);
@@ -431,6 +499,11 @@
             this.Text = "CardTable";
             this.Load += new System.EventHandler(this.CardTable_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbHandOne5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbHandOne4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbHandOne3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbHandOne2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbHandOne1)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbHandTwo4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbHandTwo5)).EndInit();
@@ -444,11 +517,8 @@
             this.tableLayoutPanel4.PerformLayout();
             this.tableLayoutPanel5.ResumeLayout(false);
             this.tableLayoutPanel5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbHandOne1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbHandOne2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbHandOne3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbHandOne4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbHandOne5)).EndInit();
+            this.tableLayoutPanel6.ResumeLayout(false);
+            this.tableLayoutPanel6.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -482,5 +552,10 @@
         private System.Windows.Forms.PictureBox pbHandOne3;
         private System.Windows.Forms.PictureBox pbHandOne2;
         private System.Windows.Forms.PictureBox pbHandOne1;
+        private System.Windows.Forms.Button btnFlip;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
+        private System.Windows.Forms.Label lblOutput2;
+        private System.Windows.Forms.Label lblOutput1;
+        private System.Windows.Forms.Button btnSwap;
     }
 }

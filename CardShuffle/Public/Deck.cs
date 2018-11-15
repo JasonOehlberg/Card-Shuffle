@@ -20,6 +20,7 @@ namespace CardShuffle.Public
         public Dictionary<Card, Image> Display { get; }
 
         public int currentCard = 0;
+        public bool deckDealt = false;
       
         public Deck()
         {
@@ -47,9 +48,9 @@ namespace CardShuffle.Public
         {
             int index = 0;
             int picNum = 1;
-            foreach( string suit in suits)
+            foreach (string suit in suits)
             {
-                foreach(KeyValuePair<string, int> items in faceData)
+                foreach (KeyValuePair<string, int> items in faceData)
                 {
                     char letter = suit.ToCharArray()[0];
                     cards[index] = new Card(items.Key, suit, items.Value, (Bitmap)Resources.ResourceManager.GetObject("_" + picNum + letter));
@@ -58,13 +59,27 @@ namespace CardShuffle.Public
                 }
                 picNum = 1;
             }
-
         }
-        public void shuffleCards()
+
+        public void ShuffleCards()
         {
-            currentCard = 0;
+            // ********** Look at Logic ***************
+            if (deckDealt)
+            {
+                currentCard = 2;
+                Card temp = cards[cards.Length - 1];
+                cards[cards.Length - 1] = cards[0];
+                cards[0] = temp;
+                temp = cards[cards.Length];
+                cards[cards.Length] = cards[1];
+                cards[1] = temp; 
+            }
+            else
+            {
+                currentCard = 0;
+            }
             
-            for(var i = 0; i < cards.Length; ++i)
+            for(var i = currentCard; i < cards.Length; ++i)
             {
                 var j = rand.Next(DECK_COUNT);
 
@@ -72,6 +87,7 @@ namespace CardShuffle.Public
                 cards[i] = cards[j];
                 cards[j] = temp;
             }
+            deckDealt = true;
         }
         
         public Card DealCard()
@@ -81,7 +97,10 @@ namespace CardShuffle.Public
                 return cards[currentCard++];
             }
             else
-                return null;
+            {
+                ShuffleCards();
+                return cards[currentCard++];
+            }
         }
 
         public Card getCurrentCard()
