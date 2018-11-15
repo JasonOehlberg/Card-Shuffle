@@ -1,15 +1,16 @@
 ﻿using CardShuffle.Public;
 using System;
-using System.Collections;
-using System.Diagnostics;
+
 using System.Drawing;
 using System.Windows.Forms;
 using CardShuffle.Properties;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Collections;
 
 namespace CardShuffle
 {
+
     public partial class CardTable : Form
     {
         private const int CARDS_IN_HAND = 5;
@@ -22,10 +23,8 @@ namespace CardShuffle
         //Card[] hand1 = new Card[5];
         //Card[] hand2 = new Card[5];
         Hand[] players;
-        
+        int currentHand = 0;
         int clicks = 0;
-
-
 
         public CardTable()
         {
@@ -35,8 +34,8 @@ namespace CardShuffle
 
             players = new Hand[PLAYERS] 
             {
-                new Hand(CARDS_IN_HAND, NUM_SWAPS),
-                new Hand(CARDS_IN_HAND, NUM_SWAPS)
+                new Hand("Player One",CARDS_IN_HAND, NUM_SWAPS),
+                new Hand("Player Two",CARDS_IN_HAND, NUM_SWAPS)
             };
         }
 
@@ -53,13 +52,13 @@ namespace CardShuffle
 
         private Label[] GetHandOneLabels()
         {
-            var labels = new Label[5] { lblHandOne1, lblHandOne2, lblHandOne3, lblHandOne4, lblHandOne5 };
+            var labels = new Label[CARDS_IN_HAND] { lblHandOne1, lblHandOne2, lblHandOne3, lblHandOne4, lblHandOne5 };
             return labels;
         }
 
         private Label[] GetHandTwoLabels()
         {
-            var labels = new Label[5] { lblHandTwo1, lblHandTwo2, lblHandTwo3, lblHandTwo4, lblHandTwo5 };
+            var labels = new Label[CARDS_IN_HAND] { lblHandTwo1, lblHandTwo2, lblHandTwo3, lblHandTwo4, lblHandTwo5 };
             return labels;
         }
 
@@ -76,24 +75,28 @@ namespace CardShuffle
     
         private void ClearTable()
         {
+            currentHand = 0;
+            clicks = 0;
             for (var i = 0; i < CARDS_IN_HAND; i++)
             {
                 GetHandOneLabels()[i].Text = String.Empty;
                 GetHandTwoLabels()[i].Text = String.Empty;
                 ShowHandOne()[i].Image = null;
+                ShowHandOne()[i].BackColor = Color.Transparent;
                 ShowHandTwo()[i].Image = null;
+                ShowHandTwo()[i].BackColor = Color.Transparent;
             }
         }
 
         private PictureBox[] ShowHandOne()
         {
-            var pictureBoxes = new PictureBox[5] { pbHandOne1, pbHandOne2, pbHandOne3, pbHandOne4, pbHandOne5 };
+            var pictureBoxes = new PictureBox[CARDS_IN_HAND] { pbHandOne1, pbHandOne2, pbHandOne3, pbHandOne4, pbHandOne5 };
             return pictureBoxes;
         }
 
         private PictureBox[] ShowHandTwo()
         {
-            var pictureBoxes = new PictureBox[5] { pbHandTwo1, pbHandTwo2, pbHandTwo3, pbHandTwo4, pbHandTwo5 };
+            var pictureBoxes = new PictureBox[CARDS_IN_HAND] { pbHandTwo1, pbHandTwo2, pbHandTwo3, pbHandTwo4, pbHandTwo5 };
             return pictureBoxes;
         }
 
@@ -102,27 +105,61 @@ namespace CardShuffle
             return cards;
         }
 
-        private void SetImageClicks(PictureBox[] picBoxes)
+        private Label[] GetHandLabel()
         {
-            foreach (PictureBox pb in picBoxes)
+            if (currentHand == 0)
+                return GetHandOneLabels();
+            else
+                return GetHandTwoLabels();
+        }
+
+       private PictureBox[] GetPictureBox()
+        {
+            if (currentHand == 0)
+                return ShowHandOne();
+            else
+                return ShowHandTwo();
+        }
+
+        private void SetImageClicks()
+        {
+            RemoveImageClicks();
+            foreach (PictureBox pb in GetPictureBox())
             {
                 pb.Click += ClickOnImage;
             }
         }
 
+        private void RemoveImageClicks()
+        {
+           foreach (PictureBox pb in GetPictureBox())
+           {
+                pb.Click -= ClickOnImage;
+                pb.BackColor = Color.Transparent;
+           }
+
+            clicks = 0;
+            
+        }
+
+        private void DefaultMessage()
+        {
+            lblOutput1.Text = $"{players[currentHand].GetName()}";
+            lblOutput2.Text = "Please select cards to trade";
+        }
+
         private void ClickOnImage(object sender, EventArgs eventArgs)
         {
             var picBox = (PictureBox)sender;
-            // if (Array.Exists<PictureBox>(ShowHandOne(), pic => pic == picBox))
-            //{
-
-            //}
+           
             if (clicks > 0)
+            {
                 btnSwap.Enabled = true;
+                lblOutput2.Text = $"Press 'Swap' to switch up to {NUM_SWAPS} cards.";
+            }
             else
             {
                 btnSwap.Enabled = false;
-                lblOutput2.Text = $"Press 'Swap' to switch up to {NUM_SWAPS} cards.";
             }
 
             if (clicks < 2)
@@ -167,9 +204,8 @@ namespace CardShuffle
             }
             await PutTaskDelay();
             DisplayCardDetails();
-            SetImageClicks(ShowHandOne());
-            lblOutput1.Text = "Player One";
-            lblOutput2.Text = "Please select cards to trade";
+            DefaultMessage();
+            SetImageClicks();
 
         }
 
@@ -181,41 +217,27 @@ namespace CardShuffle
 
         private void btnSwap_Click(object sender, EventArgs e)
         {
-
-            var picBoxes = new ArrayList();
-            picBoxes.AddRange(ShowHandOne());
-            picBoxes.AddRange(ShowHandTwo());
-
-            foreach (PictureBox pb in picBoxes)
+          
+            for(int i = 0; i < GetPictureBox().Length; i++)
             {
-                if (pb.BackColor == Color.Red)
+                if(GetPictureBox()[i].BackColor == Color.Red)
                 {
-                    foreach(Hand hand in players)
-                    {
-                        for(var i = 0; i < hand.GetHand().Length; i++)
-                        {
-                            if(hand.GetHand()[i].Front == pb.Image)
-                            {
-                                hand.GetHand()[i] = deck.DealCard();
-                                pb.Image = hand.GetHand()[i].Front;
-                                var index = Array.IndexOf(picBoxes.ToArray(), pb);
-                                if(index > 4)
-                                {
-                                    index /= 2;
-                                    GetHandTwoLabels()[index].Text = hand.GetHand()[i].ToString();
-                                }
-                                else
-                                {
-                                    GetHandOneLabels()[index].Text = hand.GetHand()[i].ToString();
-                                } 
-                            }
-                        }
-                    }
+                      players[currentHand].GetHand()[i] = deck.DealCard();
+                      GetPictureBox()[i].Image = players[currentHand].GetHand()[i].Front;
+                      GetHandLabel()[i].Text = players[currentHand].GetHand()[i].ToString();
                 }
             }
-
-            
+            RemoveImageClicks();
+            btnSwap.Enabled = false;
+            if (currentHand == 0)
+            {
+                currentHand++;
+                SetImageClicks();
+            }
+            else
+                currentHand = 0;
         }
+                
     }
 }
 

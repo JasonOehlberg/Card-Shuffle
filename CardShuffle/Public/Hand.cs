@@ -11,9 +11,11 @@ namespace CardShuffle.Public
         private Card[] cardsInHand;
         private int handPosition;
         private int[] selected;
+        private string name;
 
-        public Hand(int numCards, int swaps)
+        public Hand(string name, int numCards, int swaps)
         {
+            this.name = name;
             cardsInHand = new Card[numCards];
             handPosition = 0;
             selected = new int[swaps];
@@ -38,10 +40,9 @@ namespace CardShuffle.Public
             cardsInHand[index] = card;
         }
 
-        // ***** Not sure if needed *****
-        public void AddSelected(int index)
+        public string GetName()
         {
-           
+            return name;
         }
 
 
