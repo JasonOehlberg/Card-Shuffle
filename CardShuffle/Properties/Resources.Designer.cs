@@ -581,12 +581,42 @@ namespace CardShuffle.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon AceHigh {
+            get {
+                object obj = ResourceManager.GetObject("AceHigh", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon AceIcon {
+            get {
+                object obj = ResourceManager.GetObject("AceIcon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap blue_back {
             get {
                 object obj = ResourceManager.GetObject("blue_back", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon SpadesHigh {
+            get {
+                object obj = ResourceManager.GetObject("SpadesHigh", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
     }

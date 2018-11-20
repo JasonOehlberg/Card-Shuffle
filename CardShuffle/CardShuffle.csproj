@@ -277,6 +277,14 @@
   <ItemGroup>
     <None Include="Public\Images\Clubs\KC.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\as_ad1_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\honors_spade_14_ivx_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\as_Nkl_icon.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -435,6 +435,7 @@
             // 
             // tableLayoutPanel6
             // 
+            this.tableLayoutPanel6.BackColor = System.Drawing.Color.Transparent;
             this.tableLayoutPanel6.ColumnCount = 1;
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel6.Controls.Add(this.lblOutput2, 0, 1);
@@ -451,6 +452,8 @@
             // 
             this.lblOutput2.AutoSize = true;
             this.lblOutput2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblOutput2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblOutput2.ForeColor = System.Drawing.SystemColors.HighlightText;
             this.lblOutput2.Location = new System.Drawing.Point(3, 63);
             this.lblOutput2.Name = "lblOutput2";
             this.lblOutput2.Size = new System.Drawing.Size(251, 64);
@@ -460,6 +463,8 @@
             // 
             this.lblOutput1.AutoSize = true;
             this.lblOutput1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblOutput1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblOutput1.ForeColor = System.Drawing.SystemColors.HighlightText;
             this.lblOutput1.Location = new System.Drawing.Point(3, 0);
             this.lblOutput1.Name = "lblOutput1";
             this.lblOutput1.Size = new System.Drawing.Size(251, 63);
@@ -485,7 +490,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(943, 879);
+            this.ClientSize = new System.Drawing.Size(943, 892);
             this.Controls.Add(this.btnSwap);
             this.Controls.Add(this.tableLayoutPanel6);
             this.Controls.Add(this.btnFlip);

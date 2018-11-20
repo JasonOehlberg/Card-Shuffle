@@ -1,15 +1,17 @@
-﻿using CardShuffle.Properties;
-using System;
-using System.Collections.Generic;
+﻿// Author: Jason Oehlberg
+// Project: Deck of Cards
+// Date: 2018.11.19
+
+
+using CardShuffle.Properties;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CardShuffle.Public
 {
     class Card
     {
+        // The properties for the Card Class
+        // Each Card has a Face and Suit string name, a value for comparison and front and back Bitmap images
         public Bitmap Front { set;  get; }
         public Bitmap Back { get; }
 
@@ -17,7 +19,7 @@ namespace CardShuffle.Public
         private string Face { get; }
         private string Suit { get; }
         
-        
+        // constructor for each Card
         public Card(string face, string suit, int value, Image front)
         {
             Face = face;
@@ -27,6 +29,7 @@ namespace CardShuffle.Public
             Back = new Bitmap(Resources.blue_back);
         }
 
+        // overriden ToString method for each card
         public override string ToString()
         {
             return $" {Face} of {Suit}";

@@ -1,27 +1,35 @@
-﻿using CardShuffle.Properties;
+﻿// Author: Jason Oehlberg
+// Project: Deck of Cards
+// Date: 2018.11.19
+
+
+using CardShuffle.Properties;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
-using System.Resources;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CardShuffle.Public
 {
     class Deck
     {
+        // A constant value for the size of the deck
         private const int DECK_COUNT = 52;
+        // a random instance to shuffle the cards
         private static Random rand = new Random();
 
+        // Card array for the Deck
         private Card[] cards = new Card[DECK_COUNT];
+
+        // Holds each card and the front image to be set for each Card
         public Dictionary<Card, Image> Display { get; }
 
+        // The currentCard is the next card in the stack
         public int currentCard = 0;
+        // A value to hold wether the deck has been dealt or not
         public bool deckDealt = false;
       
+        // Constructor sets up the cards in the Dictionary
         public Deck()
         {
             var faceData = new Dictionary<string, int>() {
@@ -44,6 +52,8 @@ namespace CardShuffle.Public
             generateCards(faceData, suits);
         }
 
+        
+        // method generates each card for the Card array in the Deck
         public void generateCards(Dictionary<string, int> faceData, string[] suits)
         {
             int index = 0;
@@ -61,11 +71,16 @@ namespace CardShuffle.Public
             }
         }
 
+        // Shuffles the array using a randomly generated number
         public void ShuffleCards()
         {
             // ********** Look at Logic ***************
-            if (deckDealt)
+            // not sure if this is necessary
+            /*if (deckDealt)
             {
+                // this was intended to shuffle the cards and keep the last two at position
+                // However, when a swap is made this throws off the number
+                // it does not break but need revising
                 currentCard = 2;
                 Card temp = cards[cards.Length - 1];
                 cards[cards.Length - 1] = cards[0];
@@ -77,7 +92,7 @@ namespace CardShuffle.Public
             else
             {
                 currentCard = 0;
-            }
+            }*/
             
             for(var i = currentCard; i < cards.Length; ++i)
             {
@@ -90,19 +105,24 @@ namespace CardShuffle.Public
             deckDealt = true;
         }
         
+        // Deals the next card and moves the currentCard position in the array
         public Card DealCard()
         {
             if (currentCard < cards.Length)
             {
+                Debug.WriteLine("1: " + currentCard);
                 return cards[currentCard++];
             }
             else
             {
                 ShuffleCards();
+                currentCard = 0;
                 return cards[currentCard++];
             }
         }
 
+        
+        // retries the Card at the current position for fliping a card to the discard pile
         public Card getCurrentCard()
         {
             return cards[currentCard];
